@@ -79,6 +79,10 @@ class nextcloud (
 ) {
   $config = deep_merge($default_config, $extra_config)
 
+  file { [$webroot]:
+    ensure => dirctory,
+  }
+
   # Database
   case $db_type {
     'postgres': {
