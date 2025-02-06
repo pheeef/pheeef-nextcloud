@@ -1,0 +1,19 @@
+<%- | Hash $hash
+| -%>
+<?php
+# MANAGED BY PUPPET
+# DO NOT TOUCH :3
+$CONFIG = array (
+<% $hash.each | $key, $value | { -%>
+<% if $value =~ Array { -%>
+'<%= $key %>' => array (
+  <% $value.each | $index, $value | { -%>
+    <%= $index %> => '<%= $value %>',
+  <% } -%>
+),
+<% } -%>
+<% if $value =~ Variant[String,Integer] { -%>
+  '<%= $key %>' => '<%= $value %>',
+<% } -%>
+<% } -%>
+);
