@@ -48,8 +48,8 @@ class nextcloud (
   # Postgres Parameters
   String $database_host = 'localhost',
   String $database_password,
-  String $database_name = 'nextcloud',
-  String $database_user = $database_name,
+  String $database_name = $url,
+  String $database_user = 'nextcloud',
   Stdlib::Port $database_port = 5432,
 
   String $php_version = '8.3',

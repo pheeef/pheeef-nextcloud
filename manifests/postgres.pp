@@ -14,10 +14,10 @@
 class nextcloud::postgres (
   Stdlib::Absolutepath $wwwroot,
   String $postgres_password,
-  String $postgres_host = 'localhost',
-  String $postgres_database = 'nextcloud',
-  String $postgres_user = $postgres_database,
-  Integer $postgres_port = 5432,
+  String $postgres_host,
+  String $postgres_database,
+  String $postgres_user,
+  Integer $postgres_port,
 
 ) {
   # Setup Database 
