@@ -25,6 +25,7 @@ class nextcloud::postgres (
   } -> class { 'postgresql::server':
   } -> postgresql::server::db { $postgres_database:
     user     => $postgres_user,
+    owner    => $postgres_user,
     password => postgresql::postgresql_password($postgres_user, $postgres_password),
   } -> postgresql::server::database_grant { 'nextcloud':
     privilege => 'ALL',
