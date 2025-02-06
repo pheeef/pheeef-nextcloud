@@ -39,7 +39,7 @@ class nextcloud::postgres (
   # Write the config file for Nextcloud
 
   file { "${wwwroot}/config/db.config.php":
-    content => epp('moe_common/config/nextcloud.epp', { 'hash' => {
+    content => epp('nextcloud/config.epp', { 'hash' => {
           'dbtype'        => 'pgsql',
           'dbname'        => $postgres_database,
           'dbhost'        => "${postgres_host}:${postgres_port}",
