@@ -13,7 +13,7 @@ class nextcloud::nginx (
   Stdlib::Absolutepath $key,
   Stdlib::Absolutepath $cert,
   Hash $common_headers,
-  String::Absolutepath $php_socket,
+  Stdlib::Absolutepath $php_socket,
 ) {
   class { 'nginx':
     manage_repo                  => false,
