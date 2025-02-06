@@ -96,7 +96,7 @@ class nextcloud (
 
   case $php_type {
     'fpm': {
-      class { 'php':
+      class { 'nextcloud::php':
         version        => $php_version,
         extra_packages => $php_extra_packages,
         user           => $user,
@@ -108,7 +108,7 @@ class nextcloud (
 
   case $webserver_type {
     'nginx': {
-      class { 'nginx':
+      class { 'nextcloud::nginx':
         url            => $url,
         wwwroot        => $wwwroot,
         http_port      => $http_port,
@@ -129,7 +129,7 @@ class nextcloud (
 
   case $cache_type {
     'redis': {
-      class { 'redis': }
+      class { 'nextcloud::redis': }
     }
     default: {}
   }
