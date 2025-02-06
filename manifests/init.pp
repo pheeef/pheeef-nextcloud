@@ -136,7 +136,12 @@ class nextcloud (
 
   case $cron_type {
     'systemd': {
-      class { 'nextcloud::cron': }
+      class { 'nextcloud::cron':
+        url     => $url,
+        wwwroot => $wwwroot,
+        user    => $user,
+        group   => $group,
+      }
     }
     default: {}
   }
