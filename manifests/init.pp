@@ -79,7 +79,7 @@ class nextcloud (
 ) {
   $config = deep_merge($default_config, $extra_config)
 
-  file { [$webroot]:
+  file { [$wwwroot]:
     ensure => dirctory,
   }
 
