@@ -141,8 +141,4 @@ class nextcloud::nginx (
       'return 301 /remote.php$request_uri;',
     ],
   }
-
-  moe_common::services::balancemember { 'nextcloud':
-    options => 'ssl verify none',
-  }
 }
