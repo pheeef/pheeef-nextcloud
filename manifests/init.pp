@@ -2,24 +2,28 @@
 #
 # @param url                    url to run nextcloud under
 #
-# @param db_type                which database to use, or 'self-managed' for no database at all
-#                               currently only postgres is implemented
-#
-# @param wwwroot                wwwroot folder to install nextcloud to  
+# @param wwwroot                wwwroot folder to install nextcloud to
 # @param http_port              http port for webserver
 # @param https_port             https port for webserver
 #
 # @param user                   user the webserver and php-fpm runs as
 # @param group                  group the webserver and php-fpm runs as
 #
+# @param db_type                which database to use, or 'self-managed' for no database at all
+#                               currently only postgres is implemented
+# @param php_type               what php provider to user
+# @param webserver_type         what webserver to user
+# @param cache_type             what cach to use
+# @param cron_type              what cron type to use
+#
 # @param database_host          host the database should listen on
 # @param database_password      password for postgres database user
 # @param database_name          name for postgres database
-# @param database_user          name for postgres user 
+# @param database_user          name for postgres user
 # @param database_port          port the database listens on
 #
-# @param php_version            version to use for php 
-# @param php_extra_packages     extra php related packages to install 
+# @param php_version            version to use for php
+# @param php_extra_packages     extra php related packages to install
 #
 # @param cert_basedir           absolute dirctory for certifcate key and cert vars
 # @param key                    absolute path to .key file
@@ -36,7 +40,7 @@ class nextcloud (
   Stdlib::Port $http_port = 80,
   Stdlib::Port $https_port = 443,
 
-  String $user = 'www-data',
+  String $user = $url.regsubst('.', '_', 'G'),
   String $group = $user,
 
   Enum['postgres', 'self-managed']  $db_type        = 'postgres',
@@ -47,9 +51,9 @@ class nextcloud (
 
   # Postgres Parameters
   String $database_host = 'localhost',
-  String $database_password,
+  String $database_password = undef,
   String $database_name = $url,
-  String $database_user = 'nextcloud',
+  String $database_user = $user,
   Stdlib::Port $database_port = 5432,
 
   String $php_version = '8.3',
@@ -113,11 +117,10 @@ class nextcloud (
         wwwroot        => $wwwroot,
         http_port      => $http_port,
         https_port     => $https_port,
-        cert_basedir   => $cert_basedir,
         key            => $key,
         cert           => $cert,
         common_headers => deep_merge($common_headers, $extra_headers),
-        php_socket     => "/run/php/php${php_version}-fpm-nextcloud.sock",
+        php_socket     => $nextcloud::php::socket,
       }
     }
     default: {}

@@ -1,6 +1,22 @@
-# @summary A short summary of the purpose of this class
+# @summary Configures the Nginx Server for Nextcloud
 #
-# A description of what this class does
+# This class configures the nginx server for use with nextcloud.
+#
+# @param url
+#   url of nextcloud
+# @param wwwroot
+#   webroot the nextcloud installation is placed in
+# @param http_port
+#   webserver prot for http traffic
+# @param https_port
+#   webserver port for https traffic
+# @param key
+#`  absolutepath of certificate key
+# @param cert
+#   absolutepath of the certificate
+# @param common_headers
+#   common headers
+# @param php_socket
 #
 # @example
 #   include nextcloud::nginx
@@ -9,7 +25,6 @@ class nextcloud::nginx (
   Stdlib::Absolutepath $wwwroot,
   Stdlib::Port $http_port,
   Stdlib::Port $https_port,
-  Stdlib::Absolutepath $cert_basedir,
   Stdlib::Absolutepath $key,
   Stdlib::Absolutepath $cert,
   Hash $common_headers,

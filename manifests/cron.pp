@@ -1,6 +1,16 @@
-# @summary A short summary of the purpose of this class
+# @summary manages the nextcloud-cron task with a systemd-timer
 #
-# A description of what this class does
+# @param wwwroot
+#   the webroot of the instance
+#
+# @param url
+#   nextcloud url used as an identifier
+#
+# @param user
+#   unix user to exceute the cron-task / commonly also the user that runs the php-pool
+#
+# @param group
+#   unix group to execute the cron-task / see above
 #
 # @example
 #   include nextcloud::cron
