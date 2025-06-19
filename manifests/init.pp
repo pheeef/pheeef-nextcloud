@@ -40,7 +40,7 @@ class nextcloud (
   Stdlib::Port $http_port = 80,
   Stdlib::Port $https_port = 443,
 
-  String $user = $url.regsubst('.', '_', 'G'),
+  String $user = $url.regsubst('\.', '_', 'G'),
   String $group = $user,
 
   Enum['postgres', 'self-managed']  $db_type        = 'postgres',
