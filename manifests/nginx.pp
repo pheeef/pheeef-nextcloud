@@ -44,8 +44,8 @@ class nextcloud::nginx (
   file { [$wwwroot]:
     ensure  => 'directory',
     recurse => true,
-    owner   => 'www-data',
-    group   => 'www-data',
+    owner   => $nextcloud::user,
+    group   => $nextcloud::group,
   }
   # HTTP ENDPOINT
   -> nginx::resource::server { "${url}_http":

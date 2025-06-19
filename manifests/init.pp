@@ -6,6 +6,7 @@
 # @param http_port              http port for webserver
 # @param https_port             https port for webserver
 #
+# @param manage_user            boolean to create user and group
 # @param user                   user the webserver and php-fpm runs as
 # @param group                  group the webserver and php-fpm runs as
 #
@@ -40,6 +41,7 @@ class nextcloud (
   Stdlib::Port $http_port = 80,
   Stdlib::Port $https_port = 443,
 
+  Boolean $manage_user = true,
   String $user = $url.regsubst('\.', '_', 'G'),
   String $group = $user,
 
@@ -82,6 +84,14 @@ class nextcloud (
   Hash $extra_headers = {}
 ) {
   $config = deep_merge($default_config, $extra_config)
+
+  if $manage_user {
+    group { $group: }
+    -> user { $user:
+      gid        => $group,
+      managehome => true,
+    }
+  }
 
   # Database
   case $db_type {
