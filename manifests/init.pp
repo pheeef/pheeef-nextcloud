@@ -37,7 +37,7 @@
 #
 class nextcloud (
   Stdlib::Fqdn $url = $facts['networking']['fqdn'],
-  Stdlib::Absolutepath $wwwroot = "/var/www/${url}",
+  Stdlib::Absolutepath $wwwroot = "/var/www/${url.regsubst('\.', '_', 'G')}",
   Stdlib::Port $http_port = 80,
   Stdlib::Port $https_port = 443,
 
