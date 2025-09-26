@@ -22,6 +22,7 @@
 # @param database_name          name for postgres database
 # @param database_user          name for postgres user
 # @param database_port          port the database listens on
+# @param database_version       version of the database that should be installed
 #
 # @param php_version            version to use for php
 # @param php_extra_packages     extra php related packages to install
@@ -57,6 +58,7 @@ class nextcloud (
   String $database_name = $url,
   String $database_user = $user,
   Stdlib::Port $database_port = 5432,
+  String $database_version = '17',
 
   String $php_version = '8.3',
   Array[String] $php_extra_packages = [],
