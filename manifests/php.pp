@@ -37,7 +37,7 @@ class nextcloud::php (
       php::fpm::pool { 'nextcloud':
         listen       => $socket,
         listen_owner => $user,
-        listen_group => $group,
+        listen_group => 'www-data',
         env          => ['PATH'],
       }
 
