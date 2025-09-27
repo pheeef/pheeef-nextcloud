@@ -55,7 +55,7 @@ class nextcloud (
   # Postgres Parameters
   String $database_host = 'localhost',
   String $database_password = undef,
-  String $database_name = $url,
+  String $database_name = $url.regsubst('\.', '_', 'G'),
   String $database_user = $user,
   Stdlib::Port $database_port = 5432,
   String $database_version = '17',
