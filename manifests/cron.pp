@@ -29,7 +29,7 @@ class nextcloud::cron (
       'User'             => $user,
       'Group'            => $group,
       'WorkingDirectory' => $wwwroot,
-      'ExecStart'        => "/usr/bin/php8.3 --define apc.enable_cli=1 ${wwwroot}/cron.php",
+      'ExecStart'        => "/usr/bin/php${nextcloud::php_version} --define apc.enable_cli=1 ${wwwroot}/cron.php",
       'Restart'          => 'on-failure',
       'RestartSec'       => '5',
     },
