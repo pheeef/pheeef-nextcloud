@@ -56,7 +56,7 @@ class nextcloud::php (
           "${_php_version}-gmp",
           "${_php_version}-intl",
           "${_php_version}-imagick",
-          'libmagickcore-6.q16-6-extra',
+          'libmagickcore*-extra',
       ] + $extra_packages)
     }
     'self-managed': {}
