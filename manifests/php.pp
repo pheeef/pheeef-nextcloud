@@ -34,7 +34,7 @@ class nextcloud::php (
         },
       }
 
-      php::fpm::pool { 'nextcloud':
+      php::fpm::pool { $user:
         listen       => $socket,
         listen_owner => $user,
         listen_group => 'www-data',
@@ -43,19 +43,19 @@ class nextcloud::php (
 
       ensure_packages([
           $_php_version,
+          "${_php_version}-apcu",
+          "${_php_version}-bcmath",
           "${_php_version}-common",
           "${_php_version}-curl",
           "${_php_version}-gd",
+          "${_php_version}-gmp",
+          "${_php_version}-imagick",
+          "${_php_version}-intl",
           "${_php_version}-mbstring",
-          "${_php_version}-xml",
-          "${_php_version}-zip",
           "${_php_version}-pgsql",
           "${_php_version}-redis",
-          "${_php_version}-apcu",
-          "${_php_version}-bcmath",
-          "${_php_version}-gmp",
-          "${_php_version}-intl",
-          "${_php_version}-imagick",
+          "${_php_version}-xml",
+          "${_php_version}-zip",
           'libmagickcore*-extra',
       ] + $extra_packages)
     }
