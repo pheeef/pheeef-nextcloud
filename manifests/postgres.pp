@@ -23,8 +23,8 @@ class nextcloud::postgres (
 
 ) {
   # Setup Database
-  class { 'postgresql::server':
-  } -> postgresql::server::db { $postgres_database:
+  # the class excpects the postgres server to be initilized somewhere else
+  postgresql::server::db { $postgres_database:
     user     => $postgres_user,
     owner    => $postgres_user,
     password => postgresql::postgresql_password($postgres_user, $postgres_password),
