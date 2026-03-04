@@ -3,10 +3,10 @@
 # A description of what this class does
 #
 # @param wwwroot                   wwwroot directory of nextcloud
-# @param postgres_host          the address the database is going to bind to 
+# @param postgres_host          the address the database is going to bind to
 # @param postgres_password      password for postgres database user
 # @param postgres_database      name for postgres database
-# @param postgres_user          name for postgres user 
+# @param postgres_user          name for postgres user
 # @param postgres_port          port for postgres
 # @param postgres_version       version of postgres to install
 #
@@ -22,7 +22,7 @@ class nextcloud::postgres (
   String $postgres_version = $nextcloud::database_version,
 
 ) {
-  # Setup Database 
+  # Setup Database
   class { 'postgresql::globals':
     version => $postgres_version,
   } -> class { 'postgresql::server':
