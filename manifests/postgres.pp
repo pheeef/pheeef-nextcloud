@@ -23,9 +23,7 @@ class nextcloud::postgres (
 
 ) {
   # Setup Database
-  class { 'postgresql::globals':
-    version => $postgres_version,
-  } -> class { 'postgresql::server':
+  class { 'postgresql::server':
   } -> postgresql::server::db { $postgres_database:
     user     => $postgres_user,
     owner    => $postgres_user,
