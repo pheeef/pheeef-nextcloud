@@ -17,12 +17,13 @@
 # @param cache_type             what cach to use
 # @param cron_type              what cron type to use
 #
-# @param database_host          host the database should listen on
-# @param database_password      password for postgres database user
-# @param database_name          name for postgres database
-# @param database_user          name for postgres user
-# @param database_port          port the database listens on
-# @param database_version       version of the database that should be installed
+# @param database_host              host the database should listen on
+# @param database_password          password for postgres database user
+# @param database_name              name for postgres database
+# @param database_user              name for postgres user
+# @param database_port              port the database listens on
+# @param database_version           version of the database that should be installed
+# @param database_config_entries    config entries that are passed to the databse class
 #
 # @param php_version            version to use for php
 # @param php_extra_packages     extra php related packages to install
@@ -59,6 +60,7 @@ class nextcloud (
   String $database_user = $user,
   Stdlib::Port $database_port = 5432,
   String $database_version = '17',
+  Hash $database_config_entries = {},
 
   String $php_version = '8.3',
   Array[String] $php_extra_packages = [],

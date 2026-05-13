@@ -9,6 +9,7 @@
 # @param postgres_user          name for postgres user
 # @param postgres_port          port for postgres
 # @param postgres_version       version of postgres to install
+# @param postgres_config_entries
 #
 # @example
 #   include nextcloud::postgres
@@ -20,9 +21,18 @@ class nextcloud::postgres (
   String $postgres_user,
   Integer $postgres_port,
   String $postgres_version = $nextcloud::database_version,
-
+  String $postgres_config_entries = $nextcloud::database_config_entries
 ) {
+  include postgres
   # Setup Database
+  #
+  class { 'postgresql::globals':
+    version  => $postgres_version,
+  }
+  -> class { 'postgresql::server':
+    config_entries   => $postgres_config_entries,
+  }
+
   # the class excpects the postgres server to be initilized somewhere else
   postgresql::server::db { $postgres_database:
     user     => $postgres_user,
