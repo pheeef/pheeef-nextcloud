@@ -34,13 +34,11 @@ class nextcloud::php (
         },
       }
 
-      php::fpm {
+      class { 'php::fpm' :
         setting => {
           'memory_limit' => '128M',
-        }
-      }
-
-      php::fpm::pool { $user:
+        },
+      } -> php::fpm::pool { $user:
         listen          => $socket,
         listen_owner    => $user,
         listen_group    => 'www-data',
