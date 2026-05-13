@@ -26,6 +26,9 @@ class nextcloud::php (
         manage_repos => false,
         fpm_user     => $user,
         fpm_group    => $group,
+        settings     => {
+          'PHP/memory_limit' => '512M',
+        },
       } -> class { 'php::global':
         settings     => {
           'menory_limit'                    => '512M',
@@ -34,11 +37,7 @@ class nextcloud::php (
         },
       }
 
-      class { 'php::fpm' :
-        setting => {
-          'memory_limit' => '128M',
-        },
-      } -> php::fpm::pool { $user:
+      php::fpm::pool { $user:
         listen          => $socket,
         listen_owner    => $user,
         listen_group    => 'www-data',
