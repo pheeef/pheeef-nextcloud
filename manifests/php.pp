@@ -42,7 +42,7 @@ class nextcloud::php (
         php_admin_value => {
           'menory_limit' => '512M',
         },
-      }
+      } ~> Service["php${version}-fpm"]
 
       ensure_packages([
           $_php_version,
