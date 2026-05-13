@@ -40,7 +40,17 @@ class nextcloud::php (
         listen_group    => 'www-data',
         env             => ['PATH'],
         php_admin_value => {
-          'menory_limit' => '512M',
+          'menory_limit'                    => '512M',
+          'opcache.enable'                  => 1,
+          'opcache.enable_cli'              => 1,
+          'opcache.interned_strings_buffer' => 512,
+          'opcache.max_accelerated_files'   => 10000,
+          'opcache.memory_consumption'      => 128,
+          'opcache.revalidate_freq'         => 1,
+          'opcache.save_comments'           => 1,
+        },
+        php_admin_flag  => {
+          'output_buffering' => 'off',
         },
       } ~> Service["php${version}-fpm"]
 
