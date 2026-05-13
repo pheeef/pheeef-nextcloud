@@ -57,6 +57,7 @@ class nextcloud::nginx (
   # HTTPS ENDPOINT
   nginx::resource::server { "${url}_https":
     ssl_port           => $https_port,
+    listen_port        => $https_port,
     www_root           => $wwwroot,
     server_name        => [$url],
     ssl                => true,
