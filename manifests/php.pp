@@ -26,6 +26,7 @@ class nextcloud::php (
         manage_repos => false,
         fpm_user     => $user,
         fpm_group    => $group,
+        pool_purge   => true,
         settings     => {
           'PHP/memory_limit' => '512M',
         },
