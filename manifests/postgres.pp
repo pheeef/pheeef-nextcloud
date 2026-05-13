@@ -21,7 +21,7 @@ class nextcloud::postgres (
   String $postgres_user,
   Integer $postgres_port,
   String $postgres_version = $nextcloud::database_version,
-  String $postgres_config_entries = $nextcloud::database_config_entries
+  Hash $postgres_config_entries = $nextcloud::database_config_entries
 ) {
   include postgres
   # Setup Database
