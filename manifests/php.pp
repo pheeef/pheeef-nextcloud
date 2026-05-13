@@ -35,10 +35,13 @@ class nextcloud::php (
       }
 
       php::fpm::pool { $user:
-        listen       => $socket,
-        listen_owner => $user,
-        listen_group => 'www-data',
-        env          => ['PATH'],
+        listen          => $socket,
+        listen_owner    => $user,
+        listen_group    => 'www-data',
+        env             => ['PATH'],
+        php_admin_value => {
+          'menory_limit' => '512M',
+        },
       }
 
       ensure_packages([
