@@ -36,8 +36,8 @@ class nextcloud::cron (
     },
   } -> systemd::manage_unit { "nc_${url}_cron.timer":
     ensure        => present,
-    enable        => present,
-    active        => present,
+    enable        => true,
+    active        => true,
     timer_entry   => {
       'OnCalendar' => '*-*-* *:00,15,30,45:00',
     },
