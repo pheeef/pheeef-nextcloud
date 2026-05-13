@@ -34,7 +34,6 @@ class nextcloud::nginx (
     manage_repo                  => false,
     server_tokens                => off,
     server_purge                 => true,
-    use_default_location         => false,
     mime_types                   => {
       'text/javascript'  => 'mjs',
       'application/wasm' => 'wasm',
@@ -57,17 +56,18 @@ class nextcloud::nginx (
 
   # HTTPS ENDPOINT
   nginx::resource::server { "${url}_https":
-    ssl_port           => $https_port,
-    www_root           => $wwwroot,
-    server_name        => [$url],
-    ssl                => true,
-    ssl_cert           => $cert,
-    ssl_key            => $key,
-    add_header         => $common_headers,
-    try_files          => ['$uri', '$uri/', '/index.php$request_uri'],
-    http2              => on,
-    index_files        => ['index.php', 'index.html', '/index.php$request_uri'],
-    server_cfg_prepend => {
+    ssl_port             => $https_port,
+    www_root             => $wwwroot,
+    server_name          => [$url],
+    ssl                  => true,
+    ssl_cert             => $cert,
+    ssl_key              => $key,
+    use_default_location => false,
+    add_header           => $common_headers,
+    try_files            => ['$uri', '$uri/', '/index.php$request_uri'],
+    http2                => on,
+    index_files          => ['index.php', 'index.html', '/index.php$request_uri'],
+    server_cfg_prepend   => {
       client_max_body_size    => '512M',
       client_body_timeout     => '300s',
       client_body_buffer_size => '512k',
