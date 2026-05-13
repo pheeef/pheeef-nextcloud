@@ -21,6 +21,7 @@ class nextcloud::cron (
   String $group,
 ) {
   systemd::manage_unit { "nc_${url}_cron.service":
+    ensure        => present,
     unit_entry    => {
       'Description' => "Systemd service to run Nextlcoud cron for: ${url}",
     },
@@ -33,6 +34,15 @@ class nextcloud::cron (
       'Restart'          => 'on-failure',
       'RestartSec'       => '5',
     },
-    active        => true,
+  } -> systemd::manage_unit { "nc_${url}_cron.timer":
+    ensure        => present,
+    enable        => present,
+    active        => present,
+    timer_entry   => {
+      'OnCalendar' => '*-*-* *:00,15,30,45:00',
+    },
+    install_entry => {
+      'WantedBy' => 'timers.target',
+    },
   }
 }
