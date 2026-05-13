@@ -50,7 +50,6 @@ class nextcloud::nginx (
   # HTTP ENDPOINT
   -> nginx::resource::server { "${url}_http":
     listen_port  => $http_port,
-    www_root     => $wwwroot,
     server_name  => [$url],
     ssl_redirect => true,
   }
