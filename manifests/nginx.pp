@@ -34,6 +34,7 @@ class nextcloud::nginx (
     manage_repo                  => false,
     server_tokens                => off,
     server_purge                 => true,
+    use_default_location         => false,
     mime_types                   => {
       'text/javascript'  => 'mjs',
       'application/wasm' => 'wasm',
@@ -54,6 +55,7 @@ class nextcloud::nginx (
     ssl_redirect => true,
   }
 
+  # HTTPS ENDPOINT
   nginx::resource::server { "${url}_https":
     ssl_port           => $https_port,
     www_root           => $wwwroot,
@@ -108,6 +110,7 @@ class nextcloud::nginx (
       fastcgi_max_temp_file_size => '0',
       set                        => '$path_info $fastcgi_path_info',
     },
+    require             => Nginx::Resource::Server["${url}_https"],
   }
 
   nginx::resource::location { 'nextcloud_static':
@@ -119,6 +122,7 @@ class nextcloud::nginx (
     add_header => {
       'Cache-Control'                     => 'public, max-age=15778463',
     } + $common_headers,
+    require    => Nginx::Resource::Server["${url}_https"],
   }
 
   # Hide some paths from the client
@@ -131,6 +135,7 @@ class nextcloud::nginx (
       ssl_only    => true,
       server      => "${url}_https",
       raw_prepend => 'return 404;',
+      require     => Nginx::Resource::Server["${url}_https"],
     }
   }
 
@@ -145,6 +150,7 @@ class nextcloud::nginx (
       'location /.well-known/pki-validation { try_files $uri $uri/ =404; }',
       'return 301 /index.php$request_uri;',
     ],
+    require     => Nginx::Resource::Server["${url}_https"],
   }
 
   nginx::resource::location { '/remote':
@@ -154,5 +160,6 @@ class nextcloud::nginx (
     raw_prepend => [
       'return 301 /remote.php$request_uri;',
     ],
+    require     => Nginx::Resource::Server["${url}_https"],
   }
 }
