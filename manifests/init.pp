@@ -70,7 +70,7 @@ class nextcloud (
 
   Stdlib::Absolutepath $cert_basedir = '/etc/dehydrated',
   Stdlib::Absolutepath $key = "${cert_basedir}/private/${url}.key",
-  Stdlib::Absolutepath $cert = "${cert_basedir}/certs/${url}.crt",
+  Stdlib::Absolutepath $cert = "${cert_basedir}/certs/${url}_fullchain.pem",
 
   Hash $default_config = {
     'default_phone_region'     => 'AT',
