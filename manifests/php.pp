@@ -5,6 +5,8 @@
 # @param user               user php runs as
 # @param group              group php runs as
 # @param socket             php pool unix socket
+# @param chdir              php chdir
+# @param open_basedir        open basedir paths
 #
 # @example
 #   include nextcloud::php
@@ -13,7 +15,9 @@ class nextcloud::php (
   Array[String] $extra_packages,
   String $user,
   String $group,
-  String $socket = "/run/php/php${version}-fpm-${user}.sock"
+  String $socket = "/run/php/php${version}-fpm-${user}.sock",
+  Stdlib::AbsolutePath $chdir = '/var/www',
+  Array[Stdlib::Absolutepath] $open_basedir = [$chdir, '/tmp'],
 ) {
   case $nextcloud::php_type {
     'fpm': {
@@ -39,8 +43,10 @@ class nextcloud::php (
         listen_owner    => $user,
         listen_group    => 'www-data',
         env             => ['PATH'],
+        chdir           => $chdir,
         php_admin_value => {
           'menory_limit' => '512M',
+          'open_basedir' => "${$open_basedir.join(':')}",
         },
       }
 
