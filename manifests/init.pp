@@ -32,6 +32,7 @@
 # @param key                    absolute path to .key file
 # @param cert                   absolute path to .crt file
 #
+# @param manage_config          if set to false the nextcloud config file is not managed.
 # @param default_config         default config for nextcloud instance
 # @param extra_config           extra config (will be deep merged)
 # @param common_headers         common headers for webserver
@@ -69,6 +70,7 @@ class nextcloud (
   Stdlib::Absolutepath $key = "${cert_basedir}/private/${url}.key",
   Stdlib::Absolutepath $cert = "${cert_basedir}/certs/${url}.crt",
 
+  Boolean $manage_config = true,
   Hash $default_config = {
     'default_phone_region'     => 'AT',
     'default_timezone'         => 'Europe/Vienna',
