@@ -1,12 +1,21 @@
 # @summary Installs php for usage with nextcloud
 #
-# @param version            php version to user
-# @param extra_packages     extra php related packages to install
-# @param user               user php runs as
-# @param group              group php runs as
-# @param socket             php pool unix socket
-# @param chdir              php chdir
-# @param open_basedir        open basedir paths
+# @param version
+#   php version to use
+# @param extra_packages
+#   extra php related packages to install
+# @param user
+#   user php runs as
+# @param group
+#   group php runs as
+# @param socket
+#   php pool unix socket
+# @param chdir
+#   php chdir
+# @param open_basedir
+#   open basedir paths
+# @param  opcache_interned_strings_buffer 
+#   Size of interned strings buffer. 16 by default.
 #
 # @example
 #   include nextcloud::php
@@ -18,6 +27,7 @@ class nextcloud::php (
   String $socket = "/run/php/php${version}-fpm-${user}.sock",
   Stdlib::AbsolutePath $chdir = '/var/www',
   Array[Stdlib::Absolutepath] $open_basedir = [$chdir, '/tmp'],
+  Integer $opcache_interned_strings_buffer = 16,
 ) {
   case $nextcloud::php_type {
     'fpm': {
@@ -48,7 +58,7 @@ class nextcloud::php (
         php_admin_value => {
           'memory_limit'                    => '512M',
           'open_basedir'                    => "${$open_basedir.join(':')}",
-          'opcache.interned_strings_buffer' => '16',
+          'opcache.interned_strings_buffer' => $opcache_interned_strings_buffer,
         },
       }
 
