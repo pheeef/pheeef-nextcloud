@@ -14,7 +14,7 @@
 #   php chdir
 # @param open_basedir
 #   open basedir paths
-# @param  opcache_interned_strings_buffer 
+# @param opcache_interned_strings_buffer 
 #   Size of interned strings buffer. 16 by default.
 #
 # @example
