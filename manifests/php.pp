@@ -34,9 +34,8 @@ class nextcloud::php (
         fpm_pools    => {},
       } -> class { 'php::global':
         settings     => {
-          'memory_limit'                    => '512M',
-          'apc.enable_cli'                  => '1',
-          'opcache.interned_strings_buffer' => '16',
+          'memory_limit'   => '512M',
+          'apc.enable_cli' => '1',
         },
       }
 
@@ -47,8 +46,9 @@ class nextcloud::php (
         env             => ['PATH'],
         chdir           => $chdir,
         php_admin_value => {
-          'memory_limit' => '512M',
-          'open_basedir' => "${$open_basedir.join(':')}",
+          'memory_limit'                    => '512M',
+          'open_basedir'                    => "${$open_basedir.join(':')}",
+          'opcache.interned_strings_buffer' => '16',
         },
       }
 
