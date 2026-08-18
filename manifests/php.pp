@@ -45,7 +45,7 @@ class nextcloud::php (
         env             => ['PATH'],
         chdir           => $chdir,
         php_admin_value => {
-          'menory_limit' => '512M',
+          'memory_limit' => '512M',
           'open_basedir' => "${$open_basedir.join(':')}",
         },
       }
