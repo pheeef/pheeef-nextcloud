@@ -30,9 +30,11 @@ class nextcloud::php (
         manage_repos => false,
         fpm_user     => $user,
         fpm_group    => $group,
+        # get rid of the default pool
+        fpm_pools    => {},
       } -> class { 'php::global':
         settings     => {
-          'menory_limit'                    => '512M',
+          'memory_limit'                    => '512M',
           'apc.enable_cli'                  => '1',
           'opcache.interned_strings_buffer' => '16',
         },
