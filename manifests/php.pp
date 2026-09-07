@@ -1,10 +1,21 @@
 # @summary Installs php for usage with nextcloud
 #
-# @param version            php version to user
-# @param extra_packages     extra php related packages to install
-# @param user               user php runs as
-# @param group              group php runs as
-# @param socket             php pool unix socket
+# @param version
+#   php version to use
+# @param extra_packages
+#   extra php related packages to install
+# @param user
+#   user php runs as
+# @param group
+#   group php runs as
+# @param socket
+#   php pool unix socket
+# @param chdir
+#   php chdir
+# @param open_basedir
+#   open basedir paths
+# @param opcache_interned_strings_buffer 
+#   Size of interned strings buffer. 16 by default.
 #
 # @example
 #   include nextcloud::php
@@ -13,7 +24,10 @@ class nextcloud::php (
   Array[String] $extra_packages,
   String $user,
   String $group,
-  String $socket = "/run/php/php${version}-fpm-${user}.sock"
+  String $socket = "/run/php/php${version}-fpm-${user}.sock",
+  Stdlib::AbsolutePath $chdir = '/var/www',
+  Array[Stdlib::Absolutepath] $open_basedir = [$chdir, '/tmp'],
+  Integer $opcache_interned_strings_buffer = 16,
 ) {
   case $nextcloud::php_type {
     'fpm': {
@@ -26,11 +40,12 @@ class nextcloud::php (
         manage_repos => false,
         fpm_user     => $user,
         fpm_group    => $group,
+        # get rid of the default pool
+        fpm_pools    => {},
       } -> class { 'php::global':
         settings     => {
-          'menory_limit'                    => '512M',
-          'apc.enable_cli'                  => '1',
-          'opcache.interned_strings_buffer' => '16',
+          'memory_limit'   => '512M',
+          'apc.enable_cli' => '1',
         },
       }
 
@@ -39,8 +54,11 @@ class nextcloud::php (
         listen_owner    => $user,
         listen_group    => 'www-data',
         env             => ['PATH'],
+        chdir           => $chdir,
         php_admin_value => {
-          'menory_limit' => '512M',
+          'memory_limit'                    => '512M',
+          'open_basedir'                    => "${$open_basedir.join(':')}",
+          'opcache.interned_strings_buffer' => $opcache_interned_strings_buffer,
         },
       }
 

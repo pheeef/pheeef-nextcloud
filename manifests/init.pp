@@ -37,9 +37,12 @@
 # @param common_headers         common headers for webserver
 # @param extra_headers          custom extra headers (will be merged with common_headers)
 #
+# @param data_dir               optional path to nextcloud data dir
+#
 class nextcloud (
   Stdlib::Fqdn $url = $facts['networking']['fqdn'],
   Stdlib::Absolutepath $wwwroot = "/var/www/${url.regsubst('\.', '_', 'G')}",
+  Optional[Stdlib::Absolutepath] $data_dir = undef,
   Stdlib::Port $http_port = 80,
   Stdlib::Port $https_port = 443,
 
@@ -67,7 +70,7 @@ class nextcloud (
 
   Stdlib::Absolutepath $cert_basedir = '/etc/dehydrated',
   Stdlib::Absolutepath $key = "${cert_basedir}/private/${url}.key",
-  Stdlib::Absolutepath $cert = "${cert_basedir}/certs/${url}.crt",
+  Stdlib::Absolutepath $cert = "${cert_basedir}/certs/${url}_fullchain.pem",
 
   Hash $default_config = {
     'default_phone_region'     => 'AT',
@@ -119,6 +122,8 @@ class nextcloud (
         extra_packages => $php_extra_packages,
         user           => $user,
         group          => $group,
+        chdir          => $wwwroot,
+        open_basedir   => [$wwwroot, '/tmp'] + [$data_dir].delete_undef_values,
       }
     }
     default: {}
