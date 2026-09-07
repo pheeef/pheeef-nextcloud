@@ -2,9 +2,10 @@
   "name": "pheeef-nextcloud",
   "version": "0.1.0",
   "author": "Pheeef",
-  "summary": "",
+  "summary": "The module configures the webserver, database, php and redis for a nextcloud installation. ",
   "license": "GPL3",
-  "source": "",
+  "source": "https://github.com/pheeef/pheeef-nextcloud",
+  "issues_url": "https://github.com/pheeef/pheeef-nextcloud/issues",
   "dependencies": [
 
   ],
