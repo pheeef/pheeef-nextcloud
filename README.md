@@ -2,10 +2,6 @@
 
 The module configures the webserver, database, php and redis for a nextcloud installation. 
 
-## Table of Contents
-
-[toc]
-
 ## Description
 
 Briefly tell users why they might want to use your module. Explain what your
