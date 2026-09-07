@@ -1,5 +1,8 @@
 # pheeef-nextcloud
 
+[![Puppet Forge](https://img.shields.io/puppetforge/v/pheeef/nextcloud.svg)](https://forge.puppetlabs.com/pheeef/nextcloud)
+[![Puppet Forge](https://img.shields.io/puppetforge/dt/pheeef/nextcloud.svg)](https://forge.puppetlabs.com/pheeef/nextcloud)
+
 The module configures the webserver, database, php and redis for a nextcloud installation. 
 
 ## Description
